@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoTrade Pro - Paper Trading Bot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-900 text-white">
+    <div class="container mx-auto p-4 max-w-7xl">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-blue-600 to-purple-600 p-6 rounded-xl mb-6">
+            <h1 class="text-3xl font-bold mb-2">🤖 AutoTrade Pro</h1>
+            <p class="text-blue-100">Automated Paper Trading with Real-Time Data</p>
+        </div>
+
+        <!-- Search & Quote Section -->
+        <div class="bg-gray-800 p-6 rounded-xl mb-6">
+            <div class="flex gap-4">
+                <input type="text" id="symbolInput" placeholder="Enter symbol (e.g., AAPL, GOOGL, TSLA)"
+                       class="flex-1 px-4 py-2 bg-gray-700 rounded-lg text-white placeholder-gray-400">
+                <button onclick="fetchQuote()" class="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-lg font-semibold">
+                    <i class="fas fa-search"></i> Search
+                </button>
+            </div>
+            <div id="quoteDisplay" class="mt-4 hidden"></div>
+        </div>
+
+        <!-- Trading Rule Creator -->
+        <div class="bg-gray-800 p-6 rounded-xl mb-6">
+            <h2 class="text-xl font-bold mb-4"><i class="fas fa-cog"></i> Create Trading Rule</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <select id="ruleType" class="px-4 py-2 bg-gray-700 rounded-lg">
+                    <option value="buy">🟢 Buy</option>
+                    <option value="sell">🔴 Sell</option>
+                </select>
+                <input type="number" id="targetPrice" placeholder="Target Price" step="0.01"
+                       class="px-4 py-2 bg-gray-700 rounded-lg">
+                <input type="number" id="quantity" placeholder="Quantity" min="1"
+                       class="px-4 py-2 bg-gray-700 rounded-lg">
+                <button onclick="createRule()" class="bg-green-600 hover:bg-green-700 px-6 py-2 rounded-lg font-semibold">
+                    <i class="fas fa-plus"></i> Set Rule
+                </button>
+            </div>
+        </div>
+
+        <!-- Dashboard Grid -->
+        <div class="grid md:grid-cols-2 gap-6">
+            <!-- Active Rules -->
+            <div class="bg-gray-800 p-6 rounded-xl">
+                <h2 class="text-xl font-bold mb-4"><i class="fas fa-bullseye"></i> Active Rules</h2>
+                <div id="rulesList" class="space-y-3 max-h-96 overflow-y-auto"></div>
+            </div>
+
+            <!-- Portfolio -->
+            <div class="bg-gray-800 p-6 rounded-xl">
+                <h2 class="text-xl font-bold mb-4"><i class="fas fa-wallet"></i> Portfolio</h2>
+                <div id="portfolioList" class="space-y-3 max-h-96 overflow-y-auto"></div>
+            </div>
+        </div>
+
+        <!-- Transactions -->
+        <div class="bg-gray-800 p-6 rounded-xl mt-6">
+            <h2 class="text-xl font-bold mb-4"><i class="fas fa-history"></i> Recent Transactions</h2>
+            <div id="transactionsList" class="max-h-64 overflow-y-auto"></div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
